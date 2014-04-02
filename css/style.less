@@ -1,0 +1,85 @@
+/*!
+Theme Name: Plain.
+Theme URI: http://plain.newelementdesigns.com
+Author: Don Jones
+Author URI: http://newelementdesigns.com/
+Description: A simple theme compiled by CodeKit. Uses LESS.
+Version: 1.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+
+This theme, like WordPress, is licensed under the GPL.
+Use it to make something cool, have fun, and share what you've learned with others.
+*/
+
+/* DO NOT REMOVE */
+@import 'modules/base';
+/* ------------- */
+
+/* ---- CONTAINER ---- */
+.container{ 
+    width: @container;
+    margin: 0 auto;
+    padding: 0 .625em;
+    .box-sizing(border-box)
+}
+/* Smaller than the container */
+@media @containerMQ {
+    
+    .container{ 
+        width: 100%; 
+        padding-left: 1.25em;
+        padding-right: 1.25em
+    }
+    
+}
+
+/* ---- MODULES - Import the ones you need. ---- */
+@import 'modules/form';
+@import 'modules/table';
+@import 'modules/tooltip';
+@import 'modules/popover';
+@import 'modules/modal';
+@import 'modules/buttons';
+@import 'modules/sidr';
+
+
+/* ---- HEADER ---- */
+@import 'sections/header';
+
+
+/* ---- PAGE STYLES COMMON ---- */
+@import 'pages/page';
+
+
+/* ---- HOME PAGE SLIDESHOW ---- */
+@import 'sections/home-slideshow';
+
+
+/* --- HOME PAGE INTRO ---- */
+@import 'sections/home-intro';
+
+
+/* --- HOME PAGE GALLERY ---- */
+@import 'sections/home-gallery';
+
+
+/* --- HOME PAGE BLOG ---- */
+@import 'sections/home-blog';
+
+
+/* --- BLOG ---- */
+@import 'pages/blog';
+
+
+/* --- VIDEO ---- */
+@import 'pages/video';
+
+
+/* ---- SIDEBAR ---- */
+@import 'sections/sidebar';
+
+
+/* ---- FOOTER ---- */
+@import 'sections/footer';
+

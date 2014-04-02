@@ -1,0 +1,195 @@
+@import 'normalize';
+@import 'variables';
+@import 'fonts';
+@import 'mixins';
+@import 'lesshat';
+@import 'grid';
+
+
+/* Baseline Typography */
+
+body {
+	background: @background-color;
+	.open-sans;
+	font-size: 100%;
+	line-height: @lineheight;
+	color: @body-text-color;
+}
+
+
+h1, h2, h3, h4, h5, h6 {
+	color: @header-text-color;
+	.open-sans-condensed;
+	text-transform: uppercase
+}
+
+h1 {
+    .font(48,48);
+}
+
+h2 {
+    .font(36,48);
+}
+
+h3 {
+    .font(24);
+}
+
+h4 {
+    .font(21);
+}
+
+h5 {
+    .font(18);
+    
+}
+
+h6 {
+    .font(16);
+}
+
+p{
+    margin: 0 0 1.5em 0;
+}
+
+
+dl,
+ol,
+ul {
+    .font(16);
+    padding: 0 0 0 2.5em;
+}
+dd,
+dt,
+li {
+    line-height: @lineheight;
+    margin: 0;
+}
+
+
+
+
+/* ----- Links ----- */
+
+a { color: @link-primary; outline: 0; .transition(color .1s ease-in); }
+a:hover, a:focus { color: @link-primary-hover  }
+p a, p a:visited { line-height: inherit }
+
+
+
+
+/* ----- Images ----- */
+
+img.max-width {
+	max-width: 100%;
+	height: auto;
+}
+img.align-right{
+    float: right;
+    margin: 0 0 10px 20px;
+}
+img.align-left{
+    float: left;
+    margin: 0 20px 10px 0;
+}
+img.align-center{
+    display: block;
+    margin: 0 auto;
+}
+a img.align-right {
+    float: right;
+    margin: 0 0 10px 20px;
+}
+
+a img.align-left {
+    float: left;
+    margin: 0 20px 10px 0;
+}
+
+a img.align-center {
+    display: block;
+    margin: 0 auto;
+}
+
+
+.text-right{
+    text-align: right;
+}
+.text-left{
+    text-align: left;
+}
+.text-center{
+    text-align: center;
+}
+
+.pos-relative{
+    position: relative
+}
+
+
+/* ---- Placeholders / focus ---- */
+
+input:-moz-placeholder,
+textarea:-moz-placeholder {
+  color: #999999;
+  font-weight: normal;
+}
+
+input:-ms-input-placeholder,
+textarea:-ms-input-placeholder {
+  color: #999999;
+  font-weight: normal;
+}
+
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+  color: #999999;
+  font-weight: normal;
+}
+
+input:focus {
+    outline: none;
+}
+
+
+
+
+/* ---- Clearfix ---- */
+
+.cf:before,
+.cf:after {
+    content: " ";
+    display: table;
+}
+.cf:after {
+    clear: both;
+}
+
+
+
+
+/* HR reset */
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+}
+
+
+@media only screen and (max-width: 29.9375em) { /* 479px */
+    
+    img.align-right,
+    img.align-left,
+    a img.align-right,
+    a img.align-left{
+        display: block;
+        float: none;
+        clear: both;
+        margin: 0 auto;
+    }
+    
+}
