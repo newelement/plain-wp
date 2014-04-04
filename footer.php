@@ -45,12 +45,12 @@
                         Beverly Hills CA 90210<br>
                         1-900-877-3636</a>
                         </address>
-                        <a class="map-footer" href="#"><img src="images/map-footer.png" alt="map" width="360" height="150" class="max-width"></a>
+                        <a class="map-footer" href="#"><img src="<?php bloginfo('template_directory') ?>/images/map-footer.png" alt="map" width="360" height="150" class="max-width"></a>
                     </div>
                 </div><!-- END .container -->
                 <div class="container copyright-sub">
                     <div class="span6">
-                        <p>&copy; Copyright &infin; Plain. Website. All rights reserved.</p>
+                        <p>&copy; Copyright &infin; <?php bloginfo( 'name' ) ?>. All rights reserved.</p>
                     </div>
                     <div class="span6 privacy-terms">
                         <p>
@@ -65,7 +65,7 @@
     
         </div><!-- END #site-body -->
     
-        <script src="js/scripts.min.js"></script>
+        <?php wp_footer() ?>
         <script>
           (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
           (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

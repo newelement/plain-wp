@@ -1,5 +1,4 @@
-<?php $home = true ?>
-<?php include('header.php') ?>
+<?php get_header() ?>
             
             
             <section class="container section intro">
@@ -147,4 +146,4 @@
             </section><!-- END .container.section.homepage-news -->        
             
             
-<?php include('footer.php'); ?>
+<?php get_footer() ?>

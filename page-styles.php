@@ -1,5 +1,4 @@
-<?php $page_title = 'Styles'; ?>
-<?php include('header.php') ?>
+<?php get_header() ?>
             
             
             <section class="container section">
@@ -65,4 +64,4 @@
     
             
             
-<?php include('footer.php'); ?>
+<?php get_footer() ?>
