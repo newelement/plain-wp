@@ -1,5 +1,10 @@
 <?php get_header() ?>
             
+            <div class="secondary-page-hero">
+                <div class="container">
+                    <h1 class="page-title"><?php echo get_the_title() ?></h1>
+                </div>
+            </div>
             
             <section class="container section">
                 <div class="row">

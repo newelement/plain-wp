@@ -1,5 +1,4 @@
-<?php $page_title = 'Blog' ?>
-<?php include('header.php') ?>
+<?php get_header() ?>
             
             
             <section class="container section">
@@ -7,90 +6,61 @@
                     
                     <div class="span7">
                         
+                        <?php
+                        if (have_posts()) :
+                            while (have_posts()) :
+                        ?>
                         
                         <article class="blog-entry">
                             <header class="blog-header">
-                                <h2 class="blog-title"><a href="#">Blog Title</a></h2>
-                                <?php
-                                $localDate = strtotime("2018-05-26 13:00:00");
-                                date_default_timezone_set("UTC");
-                                $utcDate = date("Y-d-mTG:i:sz", $localDate);
+                                <h2 class="blog-title">
+                                    <a href="<?php the_permalink() ?>" rel="bookmark" title="Permanent Link to <?php the_title_attribute(); ?>">
+                                        <?php the_title(); ?>
+                                    </a>
+                                </h2>
                                 
-                                $article_url = 'http://website.com/blog-title';
-                                $article_title = 'Blog Title';
-                                ?>
-                                <p class="blog-date-author"><time pubdate="<?php echo $utcDate ?>">May 26th 2018</time> | <span class="blog-author">By Bob Dobalina</span></p>
-                            </header>
-                            <div class="blog-content">
-                                <p>
-                                Etiam porta sem malesuada magna mollis euismod. Cras mattis consectetur purus sit amet fermentum. Vestibulum id ligula porta felis euismod semper. Nullam quis risus eget urna mollis ornare vel eu leo. Aenean lacinia bibendum nulla sed consectetur.
-                                </p>
-                                <p>
-Cras justo odio, dapibus ac facilisis in, egestas eget quam. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec ullamcorper nulla non metus auctor fringilla. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Curabitur blandit tempus porttitor &hellip;
-                                </p>
-                            </div>
-                            <footer class="blog-footer">
-                                <div class="read-more text-right">
-                                    <a class="continue-reading-link" href="#">Continue Reading <i class="fa fa-angle-right"></i></a>
-                                </div>
-                                <div class="shares">
-                                    <div class="twitter-share" data-url="<?php echo $article_url ?>" data-title="<?php echo $article_title ?>"></div>
-                                    <div class="facebook-share" data-url="<?php echo $article_url ?>" data-title="<?php echo $article_title ?>"></div>
-                                    <div class="googleplus-share" data-url="<?php echo $article_url ?>" data-title="<?php echo $article_title ?>"></div>
-                                    <div class="pinterest-share" data-url="<?php echo $article_url ?>" data-title="<?php echo $article_title ?>"></div>
-                                </div>
-                            </footer>
-                        </article> <!-- END .blog-entry -->
-                        
-                        
-                        
-                        <article class="blog-entry">
-                            <header class="blog-header">
-                                <h2 class="blog-title"><a href="#">Blog Title 2</a></h2>
                                 <?php
-                                $localDate = strtotime("2018-05-26 13:00:00");
+                                $localDate = strtotime( get_post_time('U', true) );
                                 date_default_timezone_set("UTC");
                                 $utcDate = date("Y-d-mTG:i:sz", $localDate);
                                 ?>
-                                <p class="blog-date-author"><time pubdate="<?php echo $utcDate ?>">May 26th 2018</time> | <span class="blog-author">By Bob Dobalina</span></p>
+                                <p class="blog-date-author"><time pubdate="<?php echo $utcDate ?>"><?php the_time('F jS, Y') ?></time> | <span class="blog-author">By <?php the_author() ?></span></p>
                             </header>
                             <div class="blog-content">
-                                <p>
-                                Etiam porta sem malesuada magna mollis euismod. Cras mattis consectetur purus sit amet fermentum. Vestibulum id ligula porta felis euismod semper. Nullam quis risus eget urna mollis ornare vel eu leo. Aenean lacinia bibendum nulla sed consectetur.
-                                </p>
-                                <p>
-Cras justo odio, dapibus ac facilisis in, egestas eget quam. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec ullamcorper nulla non metus auctor fringilla. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Curabitur blandit tempus porttitor &hellip;
-                                </p>
+                            
+                                <?php the_content() ?>
+                            
                             </div>
                             <footer class="blog-footer">
                                 <div class="read-more text-right">
-                                    <a class="continue-reading-link" href="#">Continue Reading <i class="fa fa-angle-right"></i></a>
+                                
+                                    <a class="continue-reading-link" href="<?php the_permalink() ?>">Continue Reading <i class="fa fa-angle-right"></i></a>
+                                
                                 </div>
                                 <div class="shares">
-                                    <div class="twitter-share" data-url="<?php echo $article_url ?>" data-title="<?php echo $article_title ?>"></div>
-                                    <div class="facebook-share" data-url="<?php echo $article_url ?>" data-title="<?php echo $article_title ?>"></div>
-                                    <div class="googleplus-share" data-url="<?php echo $article_url ?>" data-title="<?php echo $article_title ?>"></div>
-                                    <div class="pinterest-share" data-url="<?php echo $article_url ?>" data-title="<?php echo $article_title ?>"></div>
+                                    <div class="twitter-share" data-url="<?php the_permalink() ?>" data-title="<?php the_title_attribute(); ?>"></div>
+                                    <div class="facebook-share" data-url="<?php the_permalink() ?>" data-title="<?php the_title_attribute(); ?>"></div>
+                                    <div class="googleplus-share" data-url="<?php the_permalink() ?>" data-title="<?php the_title_attribute(); ?>"></div>
+                                    <div class="pinterest-share" data-url="<?php the_permalink() ?>" data-title="<?php the_title_attribute(); ?>"></div>
                                 </div>
                             </footer>
                         </article> <!-- END .blog-entry -->
                         
+                        <?php
+                            endwhile;
+                        endif;
+                        ?>
                         
+                        <?php theme_paging_nav() ?>
                         
                         
                     </div><!-- END .span7 -->
         
                     
-                    <aside class="span4 pull-right sidebar">
-                        <h3>My Sidebar</h3>
-                        <p>
-                        lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                        </p>
-                        <img src="http://placehold.it/300x200" alt="placeholder" width="300" height="200" class="max-width">
-                    </aside><!-- END .sidebar -->
+                    <?php get_sidebar() ?>
                     
                 </div> <!-- END .row -->
             </section><!-- // END .container.section -->
     
             
-<?php include('footer.php'); ?>
+<?php get_footer(); ?>

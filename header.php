@@ -24,7 +24,7 @@
                         <h1><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home" title="<?php bloginfo( 'name' ); ?>">Plain.</a></h1>
                     </div>
                     <nav class="main-nav">
-                        <ul>
+                        <!--<ul>
                             <li><a href="/">Home</a></li>
                             <li><a href="#">Pages <i class="fa fa-angle-down"></i></a>
                                 <ul>
@@ -41,7 +41,8 @@
                                     <li><a href="#">Departments</a></li>
                                 </ul>
                             </li>
-                        </ul>
+                        </ul>-->
+                        <?php wp_nav_menu( array( "theme_location" => "primary", "container" => false ) ); ?>
                     </nav><!-- END .main-nav -->
                 </div><!-- END .mobile-main-nav-wrap -->
                 
@@ -56,12 +57,6 @@
                     <a class="cycle-advance cycle-next" href="#next"><span>Next</span><i class="fa fa-chevron-right"></i></a>
                     <a class="button white-frame hero-button" href="/styles/">View Styles</a>
                     <ul class="cycle-pager align-center"></ul>
-                    <?php } else { ?>
-                    <div class="secondary-page-hero">
-                        <div class="container">
-                            <h1 class="page-title"><?php echo get_the_title() ?></h1>
-                        </div>
-                    </div>
                     <?php } ?>
                 </section><!-- END .hero -->
             </header><!-- END .header -->

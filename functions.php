@@ -7,7 +7,11 @@ function theme_setup() {
 	add_theme_support( 'post-thumbnails' );
 
 	add_theme_support( 'post-formats', array( 'aside', 'image', 'video', 'quote', 'link' ) );
-
+    
+    register_nav_menus( array(
+		'primary' => __( 'Primary Menu' )
+	) );
+	
 	add_theme_support( 'html5', array(
 		'comment-list',
 		'search-form',
@@ -150,9 +154,17 @@ function theme_post_nav() {
 }
 endif;
 
+// Formats the page content
+if ( ! function_exists( 'page_content' ) ) :
+function page_content($content){
+    
+    return apply_filters('the_content', $content);
+    
+}
+endif;
+
 
 function theme_category_transient_flusher() {
-	// Like, beat it. Dig?
 	delete_transient( 'all_the_cool_cats' );
 }
 add_action( 'edit_category', 'theme_category_transient_flusher' );
