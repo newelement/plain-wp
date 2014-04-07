@@ -18,6 +18,9 @@ function theme_setup() {
 		'comment-form',
 		'gallery',
 	) );
+	
+	move_utility_files();
+	
 }
 endif;
 
@@ -31,6 +34,24 @@ function theme_widgets_init() {
 		'before_title'  => '<h1 class="widget-title">',
 		'after_title'   => '</h1>',
 	) );
+}
+
+
+function move_utility_files(){
+
+    $template_path = get_template_directory();
+    $webroot = ABSPATH;
+    
+    if( is_writable($webroot) ){
+    
+        copy($template_path.'/utility/crossdomain.xml', $webroot.'/crossdomain.xml');
+        copy($template_path.'/utility/humans.txt', $webroot.'/humans.txt');
+        copy($template_path.'/utility/robots.txt', $webroot.'/robots.txt');
+    
+    } else {
+        add_action('admin_notices', create_function('', "echo '<div class=\"error\"><p>Cannot move files. Please copy these files from the theme's /utility/ folder to your web root. crossdomain.xml, humans.txt and robots.txt </p></div>';") );   
+    }
+    
 }
 
 
@@ -77,6 +98,43 @@ if ( is_admin() && isset($_GET['activated'] ) && $pagenow === "themes.php" ) {
     
 }
 
+function htaccess_writable() {
+  if (!is_writable(get_home_path() . '.htaccess')) {
+    if (current_user_can('administrator')) {
+      add_action('admin_notices', create_function('', "echo '<div class=\"error\"><p>Please make sure your .htaccess file is writable</p></div>';") );
+    }
+  }
+}
+
+//Add HTML5 Boilerplate's .htaccess via WordPress
+function add_h5bp_htaccess($content) {
+  global $wp_rewrite;
+  $home_path = function_exists('get_home_path') ? get_home_path() : ABSPATH;
+  $htaccess_file = $home_path . '.htaccess';
+  $mod_rewrite_enabled = function_exists('got_mod_rewrite') ? got_mod_rewrite() : false;
+
+  if ((!file_exists($htaccess_file) && is_writable($home_path) && $wp_rewrite->using_mod_rewrite_permalinks()) || is_writable($htaccess_file)) {
+    if ($mod_rewrite_enabled) {
+      $h5bp_rules = extract_from_markers($htaccess_file, 'HTML5 Boilerplate');
+      if ($h5bp_rules === array()) {
+        $filename = get_template_directory() . '/utility/.h5bp-htaccess';
+        return insert_with_markers($htaccess_file, 'HTML5 Boilerplate', extract_from_markers($filename, 'HTML5 Boilerplate'));
+      }
+    }
+  }
+
+  return $content;
+}
+
+
+
+
+/* YOUR SCRIPTS AND STYLES
+*
+* This theme uses CodeKit to compile scripts and styles.
+* 
+*
+*/
 
 function theme_scripts() {
 
@@ -92,18 +150,26 @@ function theme_scripts() {
 	}
 }
 
+
+
+// Actions and filters execution
 add_action( 'after_setup_theme', 'theme_setup' );
 add_action( 'widgets_init', 'theme_widgets_init' );
 add_action( 'wp_enqueue_scripts', 'theme_scripts' );
 add_filter( 'wp_title', 'theme_wp_title', 10, 2 );
+add_action( 'admin_init', 'htaccess_writable' );
+add_action( 'generate_rewrite_rules', 'add_h5bp_htaccess' );
+
+
+
 
 
 /*
 *
 * Theme helper functions
 *
+*
 */
-
 
 if ( ! function_exists( 'theme_paging_nav' ) ) :
 function theme_paging_nav() {
@@ -162,6 +228,8 @@ function page_content($content){
     
 }
 endif;
+
+
 
 
 function theme_category_transient_flusher() {
