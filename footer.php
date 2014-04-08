@@ -50,7 +50,7 @@
                 </div><!-- END .container -->
                 <div class="container copyright-sub">
                     <div class="span6">
-                        <p>&copy; Copyright &infin; <?php bloginfo( 'name' ) ?>. All rights reserved.</p>
+                        <p>&copy; Copyright <?php echo date("Y") ?> <?php bloginfo( 'name' ) ?>. All rights reserved.</p>
                     </div>
                     <div class="span6 privacy-terms">
                         <p>

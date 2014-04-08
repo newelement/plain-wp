@@ -90,12 +90,19 @@ if ( is_admin() && isset($_GET['activated'] ) && $pagenow === "themes.php" ) {
     
     
     // Sample articles
-    $article_check1 = get_page_by_title('Roswell That Ends Well');
-    $article_check2 = get_page_by_title('The Cyber House Rules');
-    $article_check3 = get_page_by_title('A Clone of My Own');
-    $article_check1_id = $article_check1->ID;
-    $article_check4_id = $article_check2->ID;
-    $article_check3_id = $article_check3->ID;
+    $article_check1 = get_page_by_title('Roswell That Ends Well', OBJECT, 'post' );
+    $article_check2 = get_page_by_title('The Cyber House Rules', OBJECT, 'post' );
+    $article_check3 = get_page_by_title('A Clone of My Own', OBJECT, 'post' );
+    
+    if($article_check1){
+        $article_check1_id = $article_check1->ID;
+    }
+    if($article_check2){
+        $article_check2_id = $article_check2->ID;
+    }
+    if($article_check3){
+        $article_check3_id = $article_check3->ID;
+    }
     
     $new_page1 = array(
         'post_type' => 'post',
