@@ -1,29 +1,5 @@
 <?php
-if ( ! function_exists( 'theme_setup' ) ) :
-function theme_setup() {
-
-	add_theme_support( 'automatic-feed-links' );
-
-	add_theme_support( 'post-thumbnails' );
-
-	add_theme_support( 'post-formats', array( 'aside', 'image', 'video', 'quote', 'link' ) );
-    
-    register_nav_menus( array(
-		'primary' => __( 'Primary Menu' )
-	) );
-	
-	add_theme_support( 'html5', array(
-		'comment-list',
-		'search-form',
-		'comment-form',
-		'gallery',
-	) );
-	
-	move_utility_files();
-	
-}
-endif;
-
+require get_template_directory() . '/inc/setup.php';
 
 function theme_widgets_init() {
 	register_sidebar( array(
@@ -31,28 +7,11 @@ function theme_widgets_init() {
 		'id'            => 'sidebar-1',
 		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
 		'after_widget'  => '</aside>',
-		'before_title'  => '<h1 class="widget-title">',
-		'after_title'   => '</h1>',
+		'before_title'  => '<h2 class="widget-title">',
+		'after_title'   => '</h2>',
 	) );
 }
-
-
-function move_utility_files(){
-
-    $template_path = get_template_directory();
-    $webroot = ABSPATH;
-    
-    if( is_writable($webroot) ){
-    
-        copy($template_path.'/utility/crossdomain.xml', $webroot.'/crossdomain.xml');
-        copy($template_path.'/utility/humans.txt', $webroot.'/humans.txt');
-        copy($template_path.'/utility/robots.txt', $webroot.'/robots.txt');
-    
-    } else {
-        add_action('admin_notices', create_function('', "echo '<div class=\"error\"><p>Cannot move files. Please copy these files from the theme's /utility/ folder to your web root. crossdomain.xml, humans.txt and robots.txt </p></div>';") );   
-    }
-    
-}
+add_action( 'widgets_init', 'theme_widgets_init' );
 
 
 function theme_wp_title( $title, $sep ) {
@@ -78,53 +37,10 @@ function theme_wp_title( $title, $sep ) {
 
 	return $title;
 }
+add_filter( 'wp_title', 'theme_wp_title', 10, 2 );
 
-// This creates a sample page of default theme styles
-if ( is_admin() && isset($_GET['activated'] ) && $pagenow === "themes.php" ) {
 
-    $page_check = get_page_by_title('Styles');
-    $page_check_id = $page_check->ID;
-    
-    $new_page = array(
-        'post_type' => 'page',
-        'post_title' => 'Styles',
-        'post_status' => 'publish',
-        'post_author' => 1
-    );
-    
-    if(!isset($page_check_id)){
-        wp_insert_post($new_page);
-    }
-    
-}
 
-function htaccess_writable() {
-  if (!is_writable(get_home_path() . '.htaccess')) {
-    if (current_user_can('administrator')) {
-      add_action('admin_notices', create_function('', "echo '<div class=\"error\"><p>Please make sure your .htaccess file is writable</p></div>';") );
-    }
-  }
-}
-
-//Add HTML5 Boilerplate's .htaccess via WordPress
-function add_h5bp_htaccess($content) {
-  global $wp_rewrite;
-  $home_path = function_exists('get_home_path') ? get_home_path() : ABSPATH;
-  $htaccess_file = $home_path . '.htaccess';
-  $mod_rewrite_enabled = function_exists('got_mod_rewrite') ? got_mod_rewrite() : false;
-
-  if ((!file_exists($htaccess_file) && is_writable($home_path) && $wp_rewrite->using_mod_rewrite_permalinks()) || is_writable($htaccess_file)) {
-    if ($mod_rewrite_enabled) {
-      $h5bp_rules = extract_from_markers($htaccess_file, 'HTML5 Boilerplate');
-      if ($h5bp_rules === array()) {
-        $filename = get_template_directory() . '/utility/.h5bp-htaccess';
-        return insert_with_markers($htaccess_file, 'HTML5 Boilerplate', extract_from_markers($filename, 'HTML5 Boilerplate'));
-      }
-    }
-  }
-
-  return $content;
-}
 
 
 
@@ -149,16 +65,9 @@ function theme_scripts() {
 		wp_enqueue_script( 'comment-reply' );
 	}
 }
-
-
-
-// Actions and filters execution
-add_action( 'after_setup_theme', 'theme_setup' );
-add_action( 'widgets_init', 'theme_widgets_init' );
 add_action( 'wp_enqueue_scripts', 'theme_scripts' );
-add_filter( 'wp_title', 'theme_wp_title', 10, 2 );
-add_action( 'admin_init', 'htaccess_writable' );
-add_action( 'generate_rewrite_rules', 'add_h5bp_htaccess' );
+
+
 
 
 
