@@ -139,6 +139,23 @@ function page_content($content){
 endif;
 
 
+// Page sections
+if ( ! function_exists( 'get_section' ) ) :
+function get_section($section_slug){
+    global $wpdb;
+    $section_slug = preg_replace('/[^A-Za-z0-9-]/' , '', $section_slug);
+    $data = $wpdb->get_results( "SELECT post_name, post_type, ID FROM wp_posts WHERE post_name = '". $section_slug ."'" );
+    
+    $id = $data[0]->ID;
+    
+    $page = get_page( $id );
+    
+    $content = page_content($page->post_content);
+    
+    return $content;
+
+}
+endif;
 
 
 function theme_category_transient_flusher() {

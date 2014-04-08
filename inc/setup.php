@@ -70,6 +70,36 @@ function add_h5bp_htaccess($content) {
 }
 
 
+// Page sections CPT
+function page_sections_cpt() {
+	register_post_type( 'page_sections',
+		array(
+			'labels' => array(
+				'name' => __( 'Page Sections' ),
+				'singular_name' => __( 'Page Section' ),
+				'menu_name' => 'Page Sections',
+				'add_new'       => _x( 'Add New', 'page section' ),
+        		'add_new_item'  => __( 'Add New Page Section' ),
+        		'edit_item'     => __( 'Edit Page Section' ),
+        		'new_item'      => __( 'New Page Section' ),
+        		'all_items'     => __( 'All Page Sections' ),
+        		'view_item'     => __( 'View Page Section' ),
+        		'search_items'  => __( 'Search Page Sections' ),
+				'not_found' => __( 'No sections found' ),
+			),
+		'public' => true,
+		'menu_icon' => 'dashicons-exerpt-view',
+		'has_archive' => false,
+		'post_type' => 'page',
+		'menu_position' => 20,
+		'supports'      => array( 'title', 'editor', 'thumbnail' ),
+		'rewrite' => array('slug' => 'sections')
+		)
+	);
+}
+add_action( 'init', 'page_sections_cpt' );
+
+
 // This creates a sample page of default theme styles
 if ( is_admin() && isset($_GET['activated'] ) && $pagenow === "themes.php" ) {
 
@@ -144,7 +174,28 @@ if ( is_admin() && isset($_GET['activated'] ) && $pagenow === "themes.php" ) {
         wp_insert_post($new_page3);
     }
     
+    
+    // Page intro samle
+    $page_section1 = get_page_by_title( 'home intro' );
+    
+    if($page_section1){
+        $page_section1_id = $page_section1->ID;
+    }
+    
+    $new_section1 = array(
+        'post_type' => 'page_sections',
+        'post_title' => 'home intro',
+        'post_status' => 'publish',
+        'post_author' => 1,
+        'post_content' => '<h1 class="intro-title">Plain. Website</h1><p>A website repository of things I\'m tired of repeating or layouts that could be recycled because they\'ve been coded and tested to work. I\'ve also curated some scripts that I use regularly on websites. I may not use all of the scripts on this site, but may do so on future projects.</p><p>The organization of files and folders may not be optimal at the moment, but will improve over time. Copy at will.</p>'
+    );
+    
+    if(!isset($page_section1_id)){
+        wp_insert_post($new_section1);
+    }
+    
 }
+
 
 
 

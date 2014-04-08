@@ -1,35 +1,3 @@
-<?php get_header() ?>
-            
-            
-            <section class="container section intro">
-                <div class="row">
-                    
-                    <div class="span12">
-                        
-                        <h1 class="intro-title">Plain. Website</h1>
-                
-                        <p>
-                        A website repository of things I'm tired of repeating or layouts that could be recycled because they've been coded and tested to work. I've also curated some scripts that I use regularly on websites. I may not use all of the scripts on this site, but may do so on future projects.
-                        </p>
-                        
-                        <p>
-                        The organization of files and folders may not be optimal at the moment, but will improve over time. Copy at will.
-                        </p>
-                        
-                    
-                    </div><!-- END .span12 -->
-
-
-                    
-                </div> <!-- END .row -->
-            </section><!-- END .container.section.intro -->
-            
-        
-        
-            <?php get_template_part( 'partials/home', 'gallery' ); ?>
-        
-                
-      
             <section class="container section homepage-blog">
                 <div class="row">
                     
@@ -63,7 +31,4 @@
                     ?>
 
                 </div> <!-- END .row -->
-            </section><!-- END .container.section.homepage-news -->        
-            
-            
-<?php get_footer() ?>
+            </section><!-- END .container.section.homepage-news -->  
