@@ -24,25 +24,6 @@
                         <h1><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home" title="<?php bloginfo( 'name' ); ?>">Plain.</a></h1>
                     </div>
                     <nav class="main-nav">
-                        <!--<ul>
-                            <li><a href="/">Home</a></li>
-                            <li><a href="#">Pages <i class="fa fa-angle-down"></i></a>
-                                <ul>
-                                    <li><a href="blog.php">Blog</a></li>
-                                    <li><a href="video.php">Video</a></li>
-                                    <li><a href="#">Page Type 3</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="/styles/">Styles</a></li>
-                            <li><a href="#">About</a></li>
-                            <li><a href="#">Contact <i class="fa fa-angle-down"></i></a>
-                                <ul>
-                                    <li><a href="#">Directions</a></li>
-                                    <li><a href="#">Departments</a></li>
-                                </ul>
-                            </li>
-                        </ul>-->
-                        <?php wp_nav_menu( array( "container" => false ) ); ?>
-                        <?php //wp_nav_menu( array( "theme_location" => "primary", "container" => false ) ); ?>
+                        <?php wp_nav_menu( array( "theme_location" => "primary", "container" => false ) ); ?>
                     </nav><!-- END .main-nav -->
                 </div><!-- END .mobile-main-nav-wrap -->

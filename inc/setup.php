@@ -32,8 +32,6 @@ function theme_setup() {
 		'gallery',
 	) );
 	
-	//register_nav_menu( 'primary', 'Primary Menu' );
-	
 	move_utility_files();
 	
 }
@@ -253,43 +251,48 @@ if ( is_admin() && isset($_GET['activated'] ) && $pagenow === "themes.php" ) {
     
     
     // ADD PAGES TO MENU
-    //$run_once = get_option('menu_check');
-    //if (!$run_once){
+    
+    $name = 'Primary Menu';
+    $menu_exists = wp_get_nav_menu_object( $name );
+    
+    if( !$menu_exists){
         
-        $name = 'Primary Menu';
-        
-        //then get the menu object by its name
-        $menu = get_term_by( 'name', $name, 'nav_menu' );
-        //var_dump($menu);
-        //exit();
-        
-        //create the top level menu item (home)
-        /*$top_menu = wp_update_nav_menu_item($menu->term_id, 0, array( 
+        $menu_id = wp_create_nav_menu($name);
+
+            
+        wp_update_nav_menu_item($menu_id, 0, array( 
             'menu-item-title' =>  __('Home'),
             'menu-item-classes' => 'home',
             'menu-item-url' => home_url( '/' ), 
             'menu-item-status' => 'publish',
             'menu-item-position'  => 1,
             'menu-item-parent-id' => 0,
-            ));*/
+            ));
         
-        $blog_menu = wp_update_nav_menu_item($menu->term_id, 1, array( 
+        wp_update_nav_menu_item($menu_id, 0, array( 
             'menu-item-title' =>  __('Blog'),
             'menu-item-classes' => 'blog',
-            'menu-item-url' => 'blog', 
+            'menu-item-url' => home_url( '/blog/' ), 
             'menu-item-status' => 'publish',
             'menu-item-position'  => 2,
             'menu-item-parent-id' => 0,
             ));
-            
-        //then you set the wanted theme  location
+        
+        wp_update_nav_menu_item($menu_id, 0, array( 
+            'menu-item-title' =>  __('Styles'),
+            'menu-item-classes' => 'styles',
+            'menu-item-url' => home_url( '/styles/' ), 
+            'menu-item-status' => 'publish',
+            'menu-item-position'  => 3,
+            'menu-item-parent-id' => 0,
+            ));    
+        
         $locations = get_theme_mod('nav_menu_locations');
-        $locations['primary'] = $menu->term_id;
-        set_theme_mod( 'nav_menu_locations', $locations );
+        $locations['primary'] = $menu_id;
+        set_theme_mod( 'nav_menu_locations', $locations );    
             
-        // then update the menu_check option to make sure this code only runs once
-        //update_option('menu_check', true);
-    //}
+    }
+    
     
 }
 
