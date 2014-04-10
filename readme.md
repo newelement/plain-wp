@@ -64,6 +64,6 @@ string(0) ""
 
 ![Plain screenshot](https://raw.github.com/newelement/plain/master/screenshot-full.png)
 
-Big thanks/props/monster shoutout to HTML5 Boilerplate, Bootstrap, Roots.io and all web designers and developers.
+Big thanks/props/monster shoutout to HTML5 Boilerplate, Bootstrap, Roots.io, Underscores.me and all web designers and developers.
 
 License: [WTFPL](http://www.wtfpl.net/txt/copying/)
