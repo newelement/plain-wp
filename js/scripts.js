@@ -111,7 +111,7 @@ $(document).ready(function() {
         api.simulateClick();
         api.openPopup('googlePlus');
       },
-      urlCurl : 'assets/bower_components/sharrre/sharrre.php'
+      urlCurl : theme_vars.theme_location+'/assets/bower_components/sharrre/sharrre.php'
     });
     
     $('.pinterest-share').sharrre({
@@ -125,7 +125,7 @@ $(document).ready(function() {
         api.simulateClick();
         api.openPopup('pinterest');
       },
-      urlCurl : 'assets/bower_components/sharrre/sharrre.php'
+      urlCurl : theme_vars.theme_location+'/assets/bower_components/sharrre/sharrre.php'
     });
     
     

@@ -24,10 +24,6 @@ function theme_setup() {
 	add_theme_support( 'post-thumbnails' );
 
 	add_theme_support( 'post-formats', array( 'aside', 'image', 'video', 'quote', 'link' ) );
-    
-    register_nav_menus( array(
-		'primary' => __( 'Primary Menu' )
-	) );
 	
 	add_theme_support( 'html5', array(
 		'comment-list',
@@ -36,10 +32,14 @@ function theme_setup() {
 		'gallery',
 	) );
 	
+	//register_nav_menu( 'primary', 'Primary Menu' );
+	
 	move_utility_files();
 	
 }
 endif;
+add_action( 'after_setup_theme', 'theme_setup' );
+
 
 function htaccess_writable() {
   if (!is_writable(get_home_path() . '.htaccess')) {
@@ -102,10 +102,15 @@ add_action( 'init', 'page_sections_cpt' );
 
 // This creates a sample page of default theme styles
 if ( is_admin() && isset($_GET['activated'] ) && $pagenow === "themes.php" ) {
-
+    
+    register_nav_menu( 'primary', 'Primary Menu' );
+    
     // Sample page
     $page_check = get_page_by_title('Styles');
-    $page_check_id = $page_check->ID;
+    
+    if($page_check){
+        $page_check_id = $page_check->ID;
+    }
     
     $new_page = array(
         'post_type' => 'page',
@@ -176,7 +181,7 @@ if ( is_admin() && isset($_GET['activated'] ) && $pagenow === "themes.php" ) {
     
     
     // Page intro samle
-    $page_section1 = get_page_by_title( 'home intro' );
+    $page_section1 = get_page_by_title( 'home intro', OBJECT, 'page_sections' );
     
     if($page_section1){
         $page_section1_id = $page_section1->ID;
@@ -194,12 +199,103 @@ if ( is_admin() && isset($_GET['activated'] ) && $pagenow === "themes.php" ) {
         wp_insert_post($new_section1);
     }
     
+    
+    
+    // CREATE A HOME AND BLOG PAGE
+    $blog = get_page_by_title( 'Blog' );
+    $home = get_page_by_title( 'Home' );
+    
+    $home_id = false;
+    $blog_id = false;
+    
+    if($blog){
+        $blog_id = $blog->ID;
+    }
+    if($home){
+        $home_id = $home->ID;
+    }
+    
+    $new_blog_page = array(
+        'post_type' => 'page',
+        'post_title' => 'Blog',
+        'post_status' => 'publish',
+        'post_author' => 1
+    );
+    
+    $new_home_page = array(
+        'post_type' => 'page',
+        'post_title' => 'Home',
+        'post_status' => 'publish',
+        'post_author' => 1
+    );
+    
+    
+    if(!$blog_id){
+        wp_insert_post($new_blog_page);
+    }
+    
+    if(!$home_id){
+        wp_insert_post($new_home_page);
+    }
+    
+    
+    $blog = get_page_by_title( 'Blog' );
+    $home = get_page_by_title( 'Home' );
+    
+    // NOW UPDATE THE FRONT PAGE DISPLAYS
+    if( $home ){
+        update_option( 'page_on_front', $home->ID );
+        update_option( 'show_on_front', 'page' );
+    }
+    if( $blog ){
+        update_option( 'page_for_posts', $blog->ID );
+    }
+    
+    
+    // ADD PAGES TO MENU
+    //$run_once = get_option('menu_check');
+    //if (!$run_once){
+        
+        $name = 'Primary Menu';
+        
+        //then get the menu object by its name
+        $menu = get_term_by( 'name', $name, 'nav_menu' );
+        //var_dump($menu);
+        //exit();
+        
+        //create the top level menu item (home)
+        /*$top_menu = wp_update_nav_menu_item($menu->term_id, 0, array( 
+            'menu-item-title' =>  __('Home'),
+            'menu-item-classes' => 'home',
+            'menu-item-url' => home_url( '/' ), 
+            'menu-item-status' => 'publish',
+            'menu-item-position'  => 1,
+            'menu-item-parent-id' => 0,
+            ));*/
+        
+        $blog_menu = wp_update_nav_menu_item($menu->term_id, 1, array( 
+            'menu-item-title' =>  __('Blog'),
+            'menu-item-classes' => 'blog',
+            'menu-item-url' => 'blog', 
+            'menu-item-status' => 'publish',
+            'menu-item-position'  => 2,
+            'menu-item-parent-id' => 0,
+            ));
+            
+        //then you set the wanted theme  location
+        $locations = get_theme_mod('nav_menu_locations');
+        $locations['primary'] = $menu->term_id;
+        set_theme_mod( 'nav_menu_locations', $locations );
+            
+        // then update the menu_check option to make sure this code only runs once
+        //update_option('menu_check', true);
+    //}
+    
 }
 
 
 
 
-add_action( 'after_setup_theme', 'theme_setup' );
 add_action( 'admin_init', 'htaccess_writable' );
 add_action( 'generate_rewrite_rules', 'add_h5bp_htaccess' );
 ?>

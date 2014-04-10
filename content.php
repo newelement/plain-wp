@@ -1,16 +1,3 @@
-<?php get_header() ?>
-            
-            
-            <section class="container section">
-                <div class="row">
-                    
-                    <div class="span7">
-                        
-                        <?php
-                        if (have_posts()) :
-                            while (have_posts()) :
-                        ?>
-                        
                         <article class="blog-entry">
                             <header class="blog-header">
                                 <h2 class="blog-title">
@@ -20,15 +7,15 @@
                                 </h2>
                                 
                                 <?php
-                                $localDate = strtotime( get_post_time('U', true) );
-                                date_default_timezone_set("UTC");
-                                $utcDate = date("Y-d-mTG:i:sz", $localDate);
+                                //$localDate = strtotime( get_post_time('U', true) );
+                                //date_default_timezone_set("UTC");
+                                $utcDate = '' //= date("Y-d-mTG:i:sz", $localDate);
                                 ?>
                                 <p class="blog-date-author"><time pubdate="<?php echo $utcDate ?>"><?php the_time('F jS, Y') ?></time> | <span class="blog-author">By <?php the_author() ?></span></p>
                             </header>
                             <div class="blog-content">
                             
-                                <?php the_content() ?>
+                                <?php the_content('') ?>
                             
                             </div>
                             <footer class="blog-footer">
@@ -45,22 +32,3 @@
                                 </div>
                             </footer>
                         </article> <!-- END .blog-entry -->
-                        
-                        <?php
-                            endwhile;
-                        endif;
-                        ?>
-                        
-                        <?php theme_paging_nav() ?>
-                        
-                        
-                    </div><!-- END .span7 -->
-        
-                    
-                    <?php get_sidebar() ?>
-                    
-                </div> <!-- END .row -->
-            </section><!-- // END .container.section -->
-    
-            
-<?php get_footer(); ?>

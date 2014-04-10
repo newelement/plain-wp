@@ -60,7 +60,7 @@ class Settings
     {        
         register_setting(
             'site_settiings_group', // Option group
-            'my_option_name', // Option name
+            'site_settings', // Option name
             array( $this, 'sanitize' ) // Sanitize
         );
 
@@ -91,7 +91,7 @@ class Settings
 
 
         add_settings_field(
-            'business-name', // ID
+            'business_name', // ID
             'Business Name', // Title 
             array( $this, 'business_name_callback' ), // Callback
             'site-settings', // Page
@@ -163,7 +163,7 @@ class Settings
         );
         
         add_settings_field(
-            'google-analytics', // ID
+            'google_analytics', // ID
             'Google Analytics Tracking ID', // Title 
             array( $this, 'ga_callback' ), // Callback
             'site-settings', // Page
@@ -172,7 +172,7 @@ class Settings
               
 
         add_settings_field(
-            'facebook-url', 
+            'facebook_url', 
             'Facebook URL', 
             array( $this, 'facebook_callback' ), 
             'site-settings', 
@@ -180,7 +180,7 @@ class Settings
         );
         
         add_settings_field(
-            'twitter-url', 
+            'twitter_url', 
             'Twitter URL', 
             array( $this, 'twitter_callback' ), 
             'site-settings', 
@@ -188,7 +188,7 @@ class Settings
         );
         
         add_settings_field(
-            'instagram-url', 
+            'instagram_url', 
             'Instagram URL', 
             array( $this, 'instagram_callback' ), 
             'site-settings', 
@@ -196,7 +196,7 @@ class Settings
         );
         
         add_settings_field(
-            'pinterest-url', 
+            'pinterest_url', 
             'Pinterest URL', 
             array( $this, 'pinterest_callback' ), 
             'site-settings', 
@@ -204,7 +204,7 @@ class Settings
         );
         
         add_settings_field(
-            'gplus-url', 
+            'gplus_url', 
             'Google Plus URL', 
             array( $this, 'gplus_callback' ), 
             'site-settings', 
@@ -212,7 +212,7 @@ class Settings
         );    
         
         add_settings_field(
-            'youtube-url', 
+            'youtube_url', 
             'YouTube URL', 
             array( $this, 'youtube_callback' ), 
             'site-settings', 
@@ -220,7 +220,7 @@ class Settings
         );
         
         add_settings_field(
-            'gmaps-url', 
+            'gmaps_url', 
             'Google Maps URL', 
             array( $this, 'gmaps_callback' ), 
             'site-settings', 
@@ -237,12 +237,57 @@ class Settings
     public function sanitize( $input )
     {
         $new_input = array();
-        if( isset( $input['id_number'] ) )
-            $new_input['id_number'] = absint( $input['id_number'] );
+        if( isset( $input['business_name'] ) )
+            $new_input['business_name'] = sanitize_text_field( $input['business_name'] );
 
-        if( isset( $input['title'] ) )
-            $new_input['title'] = sanitize_text_field( $input['title'] );
-
+        if( isset( $input['address1'] ) )
+            $new_input['address1'] = sanitize_text_field( $input['address1'] );
+            
+        if( isset( $input['address2'] ) )
+            $new_input['address2'] = sanitize_text_field( $input['address2'] );
+            
+        if( isset( $input['city'] ) )
+            $new_input['city'] = sanitize_text_field( $input['city'] );
+        
+        if( isset( $input['state'] ) )
+            $new_input['state'] = sanitize_text_field( $input['state'] );
+        
+        if( isset( $input['zip'] ) )
+            $new_input['zip'] = sanitize_text_field( $input['zip'] ); 
+        
+        if( isset( $input['phone'] ) )
+            $new_input['phone'] = sanitize_text_field( $input['phone'] );    
+        
+        if( isset( $input['mobile'] ) )
+            $new_input['mobile'] = sanitize_text_field( $input['mobile'] );    
+        
+        if( isset( $input['fax'] ) )
+            $new_input['fax'] = sanitize_text_field( $input['fax'] );
+            
+        if( isset( $input['google_analytics'] ) )
+            $new_input['google_analytics'] = sanitize_text_field( $input['google_analytics'] );
+        
+        if( isset( $input['facebook_url'] ) )
+            $new_input['facebook_url'] = sanitize_text_field( $input['facebook_url'] );
+            
+        if( isset( $input['twitter_url'] ) )
+            $new_input['twitter_url'] = sanitize_text_field( $input['twitter_url'] );
+        
+        if( isset( $input['instagram_url'] ) )
+            $new_input['instagram_url'] = sanitize_text_field( $input['instagram_url'] );
+        
+        if( isset( $input['pinterest_url'] ) )
+            $new_input['pinterest_url'] = sanitize_text_field( $input['pinterest_url'] );
+            
+        if( isset( $input['youtube_url'] ) )
+            $new_input['youtube_url'] = sanitize_text_field( $input['youtube_url'] );
+            
+        if( isset( $input['gplus_url'] ) )
+            $new_input['gplus_url'] = sanitize_text_field( $input['gplus_url'] );
+        
+        if( isset( $input['gmaps_url'] ) )
+            $new_input['gmaps_url'] = sanitize_text_field( $input['gmaps_url'] );
+            
         return $new_input;
     }
 
@@ -267,22 +312,143 @@ class Settings
     /** 
      * Get the settings option array and print one of its values
      */
-    public function id_number_callback()
+    public function business_name_callback()
     {
         printf(
-            '<input type="text" id="id_number" name="my_option_name[id_number]" value="%s" />',
-            isset( $this->options['id_number'] ) ? esc_attr( $this->options['id_number']) : ''
+            '<input type="text" id="business-name" name="site_settings[business_name]" value="%s" />',
+            isset( $this->options['business_name'] ) ? esc_attr( $this->options['business_name']) : ''
         );
     }
 
     /** 
      * Get the settings option array and print one of its values
      */
-    public function title_callback()
+    public function address1_callback()
     {
         printf(
-            '<input type="text" id="title" name="my_option_name[title]" value="%s" />',
-            isset( $this->options['title'] ) ? esc_attr( $this->options['title']) : ''
+            '<input type="text" id="address1" name="site_settings[address1]" value="%s" />',
+            isset( $this->options['address1'] ) ? esc_attr( $this->options['address1']) : ''
         );
     }
+    
+    public function address2_callback()
+    {
+        printf(
+            '<input type="text" id="address2" name="site_settings[address2]" value="%s" />',
+            isset( $this->options['address2'] ) ? esc_attr( $this->options['address2']) : ''
+        );
+    }
+    
+    public function city_callback()
+    {
+        printf(
+            '<input type="text" id="city" name="site_settings[city]" value="%s" />',
+            isset( $this->options['city'] ) ? esc_attr( $this->options['city']) : ''
+        );
+    }
+    
+    public function state_callback()
+    {
+        printf(
+            '<input type="text" id="state" name="site_settings[state]" value="%s" />',
+            isset( $this->options['state'] ) ? esc_attr( $this->options['state']) : ''
+        );
+    }
+    
+    public function zip_callback()
+    {
+        printf(
+            '<input type="text" id="zip" name="site_settings[zip]" value="%s" />',
+            isset( $this->options['zip'] ) ? esc_attr( $this->options['zip']) : ''
+        );
+    }
+    
+    public function phone_callback()
+    {
+        printf(
+            '<input type="text" id="phone" name="site_settings[phone]" value="%s" />',
+            isset( $this->options['phone'] ) ? esc_attr( $this->options['phone']) : ''
+        );
+    }
+    
+    public function mobile_callback()
+    {
+        printf(
+            '<input type="text" id="mobile" name="site_settings[mobile]" value="%s" />',
+            isset( $this->options['mobile'] ) ? esc_attr( $this->options['mobile']) : ''
+        );
+    }
+    
+    public function fax_callback()
+    {
+        printf(
+            '<input type="text" id="fax" name="site_settings[fax]" value="%s" />',
+            isset( $this->options['fax'] ) ? esc_attr( $this->options['fax']) : ''
+        );
+    }
+    
+    public function ga_callback()
+    {
+        printf(
+            '<input type="text" id="google-analytics" name="site_settings[google_analytics]" value="%s" />',
+            isset( $this->options['google_analytics'] ) ? esc_attr( $this->options['google_analytics']) : ''
+        );
+    }
+    
+    public function facebook_callback()
+    {
+        printf(
+            '<input type="text" id="facebook-url" name="site_settings[facebook_url]" value="%s" />',
+            isset( $this->options['facebook_url'] ) ? esc_attr( $this->options['facebook_url']) : ''
+        );
+    }
+    
+    public function twitter_callback()
+    {
+        printf(
+            '<input type="text" id="twitter-url" name="site_settings[twitter_url]" value="%s" />',
+            isset( $this->options['twitter_url'] ) ? esc_attr( $this->options['twitter_url']) : ''
+        );
+    }
+    
+    public function instagram_callback()
+    {
+        printf(
+            '<input type="text" id="instagram-url" name="site_settings[instagram_url]" value="%s" />',
+            isset( $this->options['instagram_url'] ) ? esc_attr( $this->options['instagram_url']) : ''
+        );
+    }
+    
+    public function pinterest_callback()
+    {
+        printf(
+            '<input type="text" id="pinterest-url" name="site_settings[pinterest_url]" value="%s" />',
+            isset( $this->options['pinterest_url'] ) ? esc_attr( $this->options['pinterest_url']) : ''
+        );
+    }
+    
+    public function gplus_callback()
+    {
+        printf(
+            '<input type="text" id="gplus-url" name="site_settings[gplus_url]" value="%s" />',
+            isset( $this->options['gplus_url'] ) ? esc_attr( $this->options['gplus_url']) : ''
+        );
+    }
+    
+    public function gmaps_callback()
+    {
+        printf(
+            '<input type="text" id="gmaps-url" name="site_settings[gmaps_url]" value="%s" />',
+            isset( $this->options['gmaps_url'] ) ? esc_attr( $this->options['gmaps_url']) : ''
+        );
+    }
+    
+    public function youtube_callback()
+    {
+        printf(
+            '<input type="text" id="youtube-url" name="site_settings[youtube_url]" value="%s" />',
+            isset( $this->options['youtube_url'] ) ? esc_attr( $this->options['youtube_url']) : ''
+        );
+    }
+    
 }

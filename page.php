@@ -12,10 +12,11 @@
                     <div class="span7">
 
                 
-                        <?php
-                            $post = get_post();
-                            echo page_content($post->post_content);
-                        ?>
+                        <?php while ( have_posts() ) : the_post(); ?>
+
+                            <?php the_content(); ?>
+
+                        <?php endwhile; // end of the loop. ?>
                         
                     
                     </div><!-- END .span7 -->

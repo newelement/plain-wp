@@ -62,6 +62,7 @@
                     </div><!-- END .span7 -->
                     
                     
+                    <?php get_sidebar() ?>
 
                     
                 </div> <!-- END .row -->

@@ -15,7 +15,7 @@
                             <p class="homepage-blog-date"><time pubdate=""><?php the_time('F jS, Y') ?></time></p>
                         </header>
                         <div class="homepage-blog-content">
-                            <?php the_content('') ?>
+                            <?php the_content('', true) ?>
                         </div>
                         <footer class="homepage-blog-footer">
                             <a class="homepage-read-more" href="<?php the_permalink() ?>">Continue Reading <i class="fa fa-angle-right"></i></a>

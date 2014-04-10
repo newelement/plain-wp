@@ -1,5 +1,9 @@
 <?php
 require get_template_directory() . '/inc/setup.php';
+require get_template_directory() . '/classes/settings.php';
+
+$settings = new Settings();
+$site_settings = get_option('site_settings');
 
 function theme_widgets_init() {
 	register_sidebar( array(
@@ -45,6 +49,7 @@ add_filter( 'wp_title', 'theme_wp_title', 10, 2 );
 
 
 
+
 /* YOUR SCRIPTS AND STYLES
 *
 * This theme uses CodeKit to compile scripts and styles.
@@ -57,16 +62,19 @@ function theme_scripts() {
     // Load concatenated and minified stylesheet
 	wp_enqueue_style( 'main-style', get_stylesheet_uri() );
 	// Modernizr has to load in the <head>
-	wp_enqueue_script( 'modernizr', get_template_directory_uri() . '/assets/vendor/modernizr/modernizr-2.7.1.min.js', array(), '20140311' );
+	wp_enqueue_script( 'modernizr', get_template_directory_uri() . '/assets/vendor/modernizr/modernizr-2.7.1.min.js', array(), microtime() );
 	// Load all other concatenated and minified scripts in the footer
-	wp_enqueue_script( 'scripts', get_template_directory_uri() . '/js/scripts.min.js', array(), '20120204', true );
+	wp_enqueue_script( 'scripts', get_template_directory_uri() . '/js/scripts.min.js', array(), microtime(), true );
 	
-	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
-		wp_enqueue_script( 'comment-reply' );
-	}
+	// Javasctipt object to privide the theme scripts with needed data. Add items as needed to the $obj_array.
+	$obj_array = array( 'theme_location' => get_template_directory_uri() );
+    wp_localize_script( 'scripts', 'theme_vars', $obj_array );
 }
+
 add_action( 'wp_enqueue_scripts', 'theme_scripts' );
 
+
+    
 
 
 
