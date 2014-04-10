@@ -1,10 +1,66 @@
 #Plain. Website - Wordpress Theme
 
-WIP a.k.a. much todo
+Plain Wordpress Version 1.0
 
-Plain Wordpress Version
+This theme is based on LESS compiled by CodeKit.
 
-I'm still working on some of the file/folder organization, so please excuse the mess. You are free to download and hack at will or contribute.
+Upon theme activation this theme will create some sample blog entries, pages, page sections, primary nav and comes with a small site settings page.
+
+The site settings can be used in code for things like address info and social media links.
+
+```php
+$site_settings (array)
+
+// Just use global inside functions
+
+function my_function(){
+    
+    global $site_settings;
+    
+    ...
+    
+}
+
+// Available settings
+
+array(17) {  
+["business_name"]=>  
+string(0) ""  
+["address1"]=>  
+string(0) ""  
+["address2"]=>  
+string(0) ""  
+["city"]=>   
+string(0) ""  
+["state"]=>  
+string(0) ""  
+["zip"]=>  
+string(0) ""  
+["phone"]=>  
+string(0) ""  
+["mobile"]=>  
+string(0) ""  
+["fax"]=>  
+string(0) ""  
+["google_analytics"]=>  
+string(0) ""  
+["facebook_url"]=>  
+string(0) ""  
+["twitter_url"]=>  
+string(0) ""  
+["instagram_url"]=>  
+string(0) ""  
+["pinterest_url"]=>  
+string(0) ""  
+["youtube_url"]=>  
+string(0) ""  
+["gplus_url"]=>  
+string(0) ""  
+["gmaps_url"]=>  
+string(0) ""  
+}
+
+```
 
 ![Plain screenshot](https://raw.github.com/newelement/plain/master/screenshot-full.png)
 
